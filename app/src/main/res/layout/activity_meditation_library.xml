@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/meditationLibraryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meditopia Meditation Library"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/breathingExerciseButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/breathingExerciseButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:text="Breathing Exercise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meditationLibraryTitle" />
+
+    <Button
+        android:id="@+id/soothingMusicButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Soothing Music"
+        app:layout_constraintTop_toBottomOf="@+id/breathingExerciseButton"
+        app:layout_constraintStart_toStartOf="@+id/breathingExerciseButton"
+        app:layout_constraintEnd_toEndOf="@+id/breathingExerciseButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <Button
+        android:id="@+id/relaxationExerciseButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Relaxation Exercise"
+        app:layout_constraintTop_toBottomOf="@+id/soothingMusicButton"
+        app:layout_constraintStart_toStartOf="@+id/soothingMusicButton"
+        app:layout_constraintEnd_toEndOf="@+id/soothingMusicButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintTop_toBottomOf="@+id/relaxationExerciseButton"
+        app:layout_constraintStart_toStartOf="@+id/relaxationExerciseButton"
+        app:layout_constraintEnd_toEndOf="@+id/relaxationExerciseButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,164 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "9769e0621d8e2a88fc1d550bbd70067b",
+    "entities": [
+      {
+        "tableName": "username_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUserId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUsername` TEXT, `mPassword` TEXT, `isAdmin` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUsername",
+            "columnName": "mUsername",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mPassword",
+            "columnName": "mPassword",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isAdmin",
+            "columnName": "isAdmin",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "mUserId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "subscription_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mSubscriptionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isBreathingExercisePremium` INTEGER NOT NULL, `isSoothingMusicPremium` INTEGER NOT NULL, `isRelaxationExercisePremium` INTEGER NOT NULL, `mUserId` INTEGER NOT NULL, FOREIGN KEY(`mUserId`) REFERENCES `username_table`(`mUserId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mSubscriptionId",
+            "columnName": "mSubscriptionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isBreathingExercisePremium",
+            "columnName": "isBreathingExercisePremium",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSoothingMusicPremium",
+            "columnName": "isSoothingMusicPremium",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isRelaxationExercisePremium",
+            "columnName": "isRelaxationExercisePremium",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "mSubscriptionId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "username_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "mUserId"
+            ],
+            "referencedColumns": [
+              "mUserId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "rating_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mRatingId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mBreathingExerciseRating` REAL NOT NULL, `mRelaxationExerciseRating` REAL NOT NULL, `mSoothingMusicRating` REAL NOT NULL, `mUserId` INTEGER NOT NULL, FOREIGN KEY(`mUserId`) REFERENCES `username_table`(`mUserId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mRatingId",
+            "columnName": "mRatingId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mBreathingExerciseRating",
+            "columnName": "mBreathingExerciseRating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mRelaxationExerciseRating",
+            "columnName": "mRelaxationExerciseRating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mSoothingMusicRating",
+            "columnName": "mSoothingMusicRating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "mRatingId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "username_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "mUserId"
+            ],
+            "referencedColumns": [
+              "mUserId"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9769e0621d8e2a88fc1d550bbd70067b')"
+    ]
+  }
+}
