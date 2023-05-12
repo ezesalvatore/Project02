@@ -74,7 +74,18 @@ public class MeditationLibraryActivity extends AppCompatActivity {
         mSoothingMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Code to execute when soothingMusicButton is clicked
+                boolean isSubscribed = mSubscription.isSoothingMusicPremium();
+                if(isSubscribed){
+                    Intent intent = SoothingMusicActivity.intentFactory(getApplicationContext(),mUser.getUserId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Intent intent = Get_A_Subscription.intentFactory(getApplicationContext(),mUser.getUserId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
