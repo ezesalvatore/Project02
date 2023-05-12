@@ -34,6 +34,8 @@ public class AdminActivity extends AppCompatActivity {
     private User mDeletedUser;
     private Subscription mSubscription;
     private Rating mRating;
+    private String mAdminUsername;
+    private User mNewAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +73,7 @@ public class AdminActivity extends AppCompatActivity {
         mAddAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String adminToAdd = mAddAdminEditText.getText().toString();
-                // TODO: Implement logic to add admin
+                addAdmin();
                 refreshAdminPage();
             }
         });
@@ -94,6 +95,28 @@ public class AdminActivity extends AppCompatActivity {
             mRatingLogTextView.append("--------------------------------------------------\n\n");
         }
     }
+
+    private void addAdmin(){
+
+        mNewAdmin = mMeditopiaDAO.getUserByUsername(mAdminUsername);
+        if (mNewAdmin != null) {
+            // User already exists, show an error message and return
+            Toast.makeText(this, "User already exists", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        User newAdmin = new User(mAdminUsername, "admin123",true);
+
+        mMeditopiaDAO.insert(newAdmin);
+        Subscription FreeAdmin = new Subscription(true,true,true, newAdmin.getUserId());
+        Rating FiveStars = new Rating(5,5,5, newAdmin.getUserId());
+        mMeditopiaDAO.insert(newAdmin);
+        mMeditopiaDAO.insert(FreeAdmin);
+        mMeditopiaDAO.insert(FiveStars);
+
+        Toast.makeText(this, "Admin added", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void deleteUser(){
         int userId = mDeletedUser.getUserId();
@@ -125,7 +148,7 @@ public class AdminActivity extends AppCompatActivity {
     private boolean checkForUserInDatabase(){
         mDeletedUser = mMeditopiaDAO.getUserByUsername(mUsername);
         if(mDeletedUser == null){
-            Toast.makeText(this, "no user " + mUsername + " found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No user " + mUsername + " found", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -133,6 +156,7 @@ public class AdminActivity extends AppCompatActivity {
 
     private void getValuesFromDisplay(){
         mUsername = mDeleteUserEditText.getText().toString();
+        mAdminUsername = mAddAdminEditText.getText().toString();
     }
 
     private int getUserId() {
