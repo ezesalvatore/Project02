@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MeditopiaApp"
         tools:targetApi="31">
         <activity
+            android:name=".RelaxationExerciseActivity"
+            android:exported="false" />
+        <activity
             android:name=".SoothingMusicActivity"
             android:exported="false" />
         <activity
