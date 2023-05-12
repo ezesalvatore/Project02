@@ -36,6 +36,8 @@ public class AdminActivity extends AppCompatActivity {
     private Rating mRating;
     private String mAdminUsername;
     private User mNewAdmin;
+    private Button mBackButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,24 +49,24 @@ public class AdminActivity extends AppCompatActivity {
         mDeleteUserButton = findViewById(R.id.deleteUserButton);
         mAddAdminEditText = findViewById(R.id.addAdminEditText);
         mAddAdminButton = findViewById(R.id.addAdminButton);
+        mBackButton = findViewById(R.id.backButton);
 
-        getDatabase();
+
         getDatabase();
         int mUserId = getUserId();
         loginUser(mUserId);
 
         mRatingLogTextView.setMovementMethod(new ScrollingMovementMethod());
 
-        getValuesFromDisplay();
 
         refreshAdminPage();
 
         mDeleteUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if(checkForUserInDatabase()){
+                mUsername = mDeleteUserEditText.getText().toString();
+                if(checkForUserInDatabase()){
                    deleteUser();
-
                }
                 refreshAdminPage();
             }
@@ -73,8 +75,18 @@ public class AdminActivity extends AppCompatActivity {
         mAddAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addAdmin();
+                mAdminUsername = mAddAdminEditText.getText().toString();
+                addAdmin(mAdminUsername);
                 refreshAdminPage();
+            }
+        });
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = LandingPage.intentFactory(getApplicationContext(),mUser.getUserId());
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -96,22 +108,27 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    private void addAdmin(){
+    private void addAdmin(String username) {
+        if (username.isEmpty()) {
+            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        mNewAdmin = mMeditopiaDAO.getUserByUsername(mAdminUsername);
+        mNewAdmin = mMeditopiaDAO.getUserByUsername(username);
         if (mNewAdmin != null) {
             // User already exists, show an error message and return
             Toast.makeText(this, "User already exists", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        User newAdmin = new User(mAdminUsername, "admin123",true);
+        User newAdmin = new User(username, "admin123", true);
+        mMeditopiaDAO.insert(newAdmin);
 
-        mMeditopiaDAO.insert(newAdmin);
-        Subscription FreeAdmin = new Subscription(true,true,true, newAdmin.getUserId());
-        Rating FiveStars = new Rating(5,5,5, newAdmin.getUserId());
-        mMeditopiaDAO.insert(newAdmin);
+        int newAdminId = newAdmin.getUserId();
+
+        Subscription FreeAdmin = new Subscription(true, true, true, newAdminId);
         mMeditopiaDAO.insert(FreeAdmin);
+        Rating FiveStars = new Rating(5, 5, 5, newAdminId);
         mMeditopiaDAO.insert(FiveStars);
 
         Toast.makeText(this, "Admin added", Toast.LENGTH_SHORT).show();
@@ -152,11 +169,6 @@ public class AdminActivity extends AppCompatActivity {
             return false;
         }
         return true;
-    }
-
-    private void getValuesFromDisplay(){
-        mUsername = mDeleteUserEditText.getText().toString();
-        mAdminUsername = mAddAdminEditText.getText().toString();
     }
 
     private int getUserId() {

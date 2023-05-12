@@ -23,11 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordEditText;
     private Button mLoginButton;
     private MeditopiaDAO mMeditopiaDAO;
-
     private String mUsername;
-
     private String mPassword;
-
     private User mUser;
 
 

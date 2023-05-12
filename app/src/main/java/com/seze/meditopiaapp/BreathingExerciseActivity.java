@@ -45,7 +45,6 @@ public class BreathingExerciseActivity extends AppCompatActivity {
         mVideoView.setVideoURI(Uri.parse(videoPath));
         mVideoView.start();
 
-
         getDatabase();
         int mUserId = getUserId();
         loginUser(mUserId);
@@ -57,7 +56,6 @@ public class BreathingExerciseActivity extends AppCompatActivity {
             }
         }
 
-        // set the rating bar listener
         mExerciseRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -70,7 +68,6 @@ public class BreathingExerciseActivity extends AppCompatActivity {
             }
         });
 
-        // set the back button listener
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +106,6 @@ public class BreathingExerciseActivity extends AppCompatActivity {
     private void loginUser(int userId){
         mUser = mMeditopiaDAO.getUserByUserId(userId);
     }
-
 
     public static Intent intentFactory(Context context, int userId){
         Intent intent = new Intent(context, BreathingExerciseActivity.class);

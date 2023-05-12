@@ -92,8 +92,18 @@ public class MeditationLibraryActivity extends AppCompatActivity {
         mRelaxationExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Code to execute when relaxationExerciseButton is clicked
-            }
+                boolean isSubscribed = mSubscription.isRelaxationExercisePremium();
+                if(isSubscribed){
+                    Intent intent = RelaxationExerciseActivity.intentFactory(getApplicationContext(),mUser.getUserId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Intent intent = Get_A_Subscription.intentFactory(getApplicationContext(),mUser.getUserId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }            }
         });
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
