@@ -14,13 +14,13 @@ import java.util.List;
 @Dao
 public interface MeditopiaDAO {
     @Insert
-    void insert(User... users);
+    void insert(User user);
 
     @Update
-    void update(User... users);
+    void update(User user);
 
     @Delete
-    void delete(User... users);
+    void delete(User user);
 
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE)
     List<User> getAllUsers();
@@ -41,8 +41,8 @@ public interface MeditopiaDAO {
     @Delete
     void delete(Subscription subscription);
 
-    @Query("SELECT * FROM " + AppDataBase.SUBSCRIPTION_TABLE + " WHERE mUserId = :subscriptionId")
-    Subscription getBySubscriptionId(int subscriptionId);
+    @Query("SELECT * FROM " + AppDataBase.SUBSCRIPTION_TABLE + " WHERE mSubscriptionId = :subscriptionId")
+    Subscription getSubscriptionById(int subscriptionId);
 
     @Query("SELECT * FROM " + AppDataBase.SUBSCRIPTION_TABLE)
     List<Subscription> getAllSubscriptionLogs();
@@ -55,6 +55,9 @@ public interface MeditopiaDAO {
 
     @Delete
     void delete(Rating rating);
+
+    @Query("SELECT * FROM " + AppDataBase.RATING_TABLE + " WHERE mRatingId = :ratingId")
+    Rating getByRatingbyId(int ratingId);
 
     @Query("SELECT * FROM " + AppDataBase.RATING_TABLE)
     List<Rating> getAllRatingsLogs();
