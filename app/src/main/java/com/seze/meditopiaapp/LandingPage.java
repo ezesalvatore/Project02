@@ -33,8 +33,6 @@ public class LandingPage extends AppCompatActivity {
 
     private SharedPreferences mPreferences = null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
